@@ -1,2 +1,2 @@
 # Trackers Bot
-Discord bot made for CS Trackers.
+Discord bot made for Trackers Devs for Trackers.
