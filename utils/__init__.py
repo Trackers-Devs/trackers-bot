@@ -32,9 +32,7 @@ class MemberMgr:
             pass
 
         try:
-            async for message in messageable.history(
-                limit=None, oldest_first=False
-            ):
+            async for message in messageable.history(limit=None, oldest_first=False):
                 if message.author.id != member.id:
                     continue
 

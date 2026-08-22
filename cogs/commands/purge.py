@@ -35,9 +35,7 @@ class PurgeCommands(commands.Cog):
         course_tracker_role_category = discord.utils.get(
             guild.roles, name=COURSE_TRACKER_ROLE_CATEGORY.name
         )
-        course_tracker_role = discord.utils.get(
-            guild.roles, name="Course Trackers"
-        )
+        course_tracker_role = discord.utils.get(guild.roles, name="Course Trackers")
 
         await RoleMgr.purge(
             [
@@ -62,13 +60,9 @@ class PurgeCommands(commands.Cog):
         guild: discord.Guild = ctx.guild
         await ctx.respond("Purging TAs...", ephemeral=True)
 
-        ta_role_category = discord.utils.get(
-            guild.roles, name=TA_ROLE_CATEGORY.name
-        )
+        ta_role_category = discord.utils.get(guild.roles, name=TA_ROLE_CATEGORY.name)
         graduate_ta_role = discord.utils.get(guild.roles, name="Graduate TAs")
-        undergraduate_ta_role = discord.utils.get(
-            guild.roles, name="Undergraduate TAs"
-        )
+        undergraduate_ta_role = discord.utils.get(guild.roles, name="Undergraduate TAs")
 
         await RoleMgr.purge(
             [
@@ -78,9 +72,7 @@ class PurgeCommands(commands.Cog):
                 *RoleMgr.get_between(
                     guild.roles,
                     ta_role_category,
-                    discord.utils.get(
-                        guild.roles, name=PERSONAL_ROLE_CATEGORY.name
-                    ),
+                    discord.utils.get(guild.roles, name=PERSONAL_ROLE_CATEGORY.name),
                 ),
             ]
         )
@@ -99,9 +91,7 @@ class PurgeCommands(commands.Cog):
         await RoleMgr.purge(
             RoleMgr.get_between(
                 guild.roles,
-                discord.utils.get(
-                    guild.roles, name=CLASSES_ROLE_CATEGORY.name
-                ),
+                discord.utils.get(guild.roles, name=CLASSES_ROLE_CATEGORY.name),
                 discord.utils.get(guild.roles, name=BOTS_ROLE_CATEGORY.name),
             )
         )

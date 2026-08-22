@@ -34,9 +34,7 @@ class AssignCommands(commands.Cog):
         await MemberMgr.assign(
             member,
             [
-                discord.utils.get(
-                    guild.roles, name=COURSE_TRACKER_ROLE_CATEGORY.name
-                ),
+                discord.utils.get(guild.roles, name=COURSE_TRACKER_ROLE_CATEGORY.name),
                 discord.utils.get(guild.roles, name="Course Trackers"),
                 discord.utils.get(guild.roles, name=f"{course.name} Tracker"),
             ],
@@ -52,9 +50,7 @@ class AssignCommands(commands.Cog):
         description="Assign Graduate TA roles to the given member",
     )
     @discord.option("member", type=discord.SlashCommandOptionType.mentionable)
-    @discord.option(
-        "course", type=discord.SlashCommandOptionType.role, required=False
-    )
+    @discord.option("course", type=discord.SlashCommandOptionType.role, required=False)
     async def assign_graduate_ta(
         self,
         ctx: discord.ApplicationContext,
