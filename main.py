@@ -22,13 +22,14 @@ if __name__ == "__main__":
         logger.critical("DISCORD_TOKEN not found in environment.")
         exit(1)
 
-    bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
+    bot = commands.Bot(
+        command_prefix="!",
+        intents=discord.Intents.all(),
+        allowed_mentions=discord.AllowedMentions.none(),
+    )
 
-    for cog in [
-        str(path.with_suffix("")).replace("/", ".")
-        for path in Path("cogs").rglob("*.py")
-        if path.name != "__init__.py"
-    ]:
-        bot.load_extension(cog)
+    for path in Path("cogs").rglob("*.py"):
+        if path.stem != "__init__":
+            bot.load_extension(".".join(path.with_suffix("").parts))
 
     bot.run(DISCORD_TOKEN)
