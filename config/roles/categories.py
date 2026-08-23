@@ -1,4 +1,4 @@
-from utils.dataclasses import RoleCategory
+from util.dataclasses import RoleCategory
 
 COURSE_TRACKER_ROLE_CATEGORY = RoleCategory("COURSE TRACKERS")
 TA_ROLE_CATEGORY = RoleCategory("TEACHING ASSISTANT")

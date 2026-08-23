@@ -1,11 +1,11 @@
 import discord
 from discord.ext import commands
 
-from configs.role_categories import (
+from config.roles.categories import (
     COURSE_TRACKER_ROLE_CATEGORY,
     TA_ROLE_CATEGORY,
 )
-from utils import MemberMgr
+from util import MemberMgr
 
 
 class AssignCommands(commands.Cog):

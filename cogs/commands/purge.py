@@ -3,14 +3,14 @@ import logging
 import discord
 from discord.ext import commands
 
-from configs.role_categories import (
+from config.roles.categories import (
     BOTS_ROLE_CATEGORY,
     CLASSES_ROLE_CATEGORY,
     COURSE_TRACKER_ROLE_CATEGORY,
     PERSONAL_ROLE_CATEGORY,
     TA_ROLE_CATEGORY,
 )
-from utils import RoleMgr
+from util import RoleMgr
 
 logger = logging.getLogger(__name__)
 
