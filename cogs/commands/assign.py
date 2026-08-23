@@ -2,8 +2,8 @@ import discord
 from discord.ext import commands
 
 from config.roles.categories import (
-    COURSE_TRACKER_ROLE_CATEGORY,
-    TA_ROLE_CATEGORY,
+    COURSE_TRACKERS,
+    TEACHING_ASSISTANT,
 )
 from util import MemberMgr
 
@@ -34,7 +34,7 @@ class AssignCommands(commands.Cog):
         await MemberMgr.assign(
             member,
             [
-                discord.utils.get(guild.roles, name=COURSE_TRACKER_ROLE_CATEGORY.name),
+                discord.utils.get(guild.roles, name=COURSE_TRACKERS.name),
                 discord.utils.get(guild.roles, name="Course Trackers"),
                 discord.utils.get(guild.roles, name=f"{course.name} Tracker"),
             ],
@@ -62,7 +62,7 @@ class AssignCommands(commands.Cog):
         await MemberMgr.assign(
             member,
             [
-                discord.utils.get(guild.roles, name=TA_ROLE_CATEGORY.name),
+                discord.utils.get(guild.roles, name=TEACHING_ASSISTANT.name),
                 discord.utils.get(guild.roles, name="Graduate TAs"),
             ],
         )
@@ -96,7 +96,7 @@ class AssignCommands(commands.Cog):
         await MemberMgr.assign(
             member,
             [
-                discord.utils.get(guild.roles, name=TA_ROLE_CATEGORY.name),
+                discord.utils.get(guild.roles, name=TEACHING_ASSISTANT.name),
                 discord.utils.get(guild.roles, name="Undergraduate TAs"),
                 discord.utils.get(guild.roles, name=f"{course.name} TA"),
             ],

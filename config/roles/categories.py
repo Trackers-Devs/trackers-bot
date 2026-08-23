@@ -1,8 +1,8 @@
 from util.dataclasses import RoleCategory
 
-COURSE_TRACKER_ROLE_CATEGORY = RoleCategory("COURSE TRACKERS")
-TA_ROLE_CATEGORY = RoleCategory("TEACHING ASSISTANT")
-PERSONAL_ROLE_CATEGORY = RoleCategory("PERSONAL")
-COMMUNITY_ROLE_CATEGORY = RoleCategory("COMMUNITY")
-CLASSES_ROLE_CATEGORY = RoleCategory("CLASSES")
-BOTS_ROLE_CATEGORY = RoleCategory("BOTS")
+COURSE_TRACKERS = RoleCategory(name="COURSE TRACKERS")
+TEACHING_ASSISTANT = RoleCategory(name="TEACHING ASSISTANT")
+PERSONAL = RoleCategory(name="PERSONAL")
+COMMUNITY = RoleCategory(name="COMMUNITY")
+CLASSES = RoleCategory(name="CLASSES")
+BOTS = RoleCategory(name="BOTS")
