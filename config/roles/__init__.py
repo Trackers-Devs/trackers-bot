@@ -1,3 +1,4 @@
+from config.roles import categories  # noqa: F401
 from static import colors
 from util.dataclasses import Role
 

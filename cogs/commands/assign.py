@@ -32,11 +32,12 @@ class AssignCommands(commands.Cog):
         await ctx.defer(ephemeral="commands" not in ctx.channel.name)
 
         for role in (
-            discord.utils.get(
-                ctx.guild.roles, name=roles.categories.TEACHING_ASSISTANT.name
-            ),
-            discord.utils.get(ctx.guild.roles, name=roles.GRADUATE_TAS.name),
-            discord.utils.get(ctx.guild.roles, name=roles.TA(course.name).name),
+            discord.utils.get(ctx.guild.roles, name=role.name)
+            for role in (
+                roles.categories.TEACHING_ASSISTANT,
+                roles.GRADUATE_TAS,
+                roles.TA(course.name),
+            )
         ):
             await member.add_roles(role)
 
@@ -59,11 +60,12 @@ class AssignCommands(commands.Cog):
         await ctx.defer(ephemeral="commands" not in ctx.channel.name)
 
         for role in (
-            discord.utils.get(
-                ctx.guild.roles, name=roles.categories.TEACHING_ASSISTANT.name
-            ),
-            discord.utils.get(ctx.guild.roles, name=roles.UNDERGRADUATE_TAS.name),
-            discord.utils.get(ctx.guild.roles, name=roles.TA(course.name).name),
+            discord.utils.get(ctx.guild.roles, name=role.name)
+            for role in (
+                roles.categories.TEACHING_ASSISTANT,
+                roles.UNDERGRADUATE_TAS,
+                roles.TA(course.name),
+            )
         ):
             await member.add_roles(role)
 
@@ -86,13 +88,12 @@ class AssignCommands(commands.Cog):
         await ctx.defer(ephemeral="commands" not in ctx.channel.name)
 
         for role in (
-            discord.utils.get(
-                ctx.guild.roles, name=roles.categories.COURSE_TRACKERS.name
-            ),
-            discord.utils.get(ctx.guild.roles, name=roles.COURSE_TRACKERS.name),
-            discord.utils.get(
-                ctx.guild.roles, name=roles.COURSE_TRACKER(course.name).name
-            ),
+            discord.utils.get(ctx.guild.roles, name=role.name)
+            for role in (
+                roles.categories.COURSE_TRACKERS,
+                roles.COURSE_TRACKERS,
+                roles.COURSE_TRACKER(course.name),
+            )
         ):
             await member.add_roles(role)
 
