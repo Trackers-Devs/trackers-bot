@@ -6,11 +6,6 @@ import discord
 
 class MemberMgr:
     @staticmethod
-    async def assign(member: discord.Member, roles: Iterable[discord.Role]):
-        for role in roles:
-            await member.add_roles(role)
-
-    @staticmethod
     async def purge_in(
         member: discord.Member, messageable: discord.abc.Messageable
     ) -> int:

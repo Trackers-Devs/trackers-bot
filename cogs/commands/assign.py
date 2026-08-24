@@ -1,11 +1,7 @@
 import discord
 from discord.ext import commands
 
-from config.roles.categories import (
-    COURSE_TRACKERS,
-    TEACHING_ASSISTANT,
-)
-from util import MemberMgr
+from config import roles
 
 
 class AssignCommands(commands.Cog):
@@ -14,97 +10,94 @@ class AssignCommands(commands.Cog):
 
     assign = discord.SlashCommandGroup(
         name="assign",
+        description="Assign special roles to members",
         default_member_permissions=discord.Permissions(administrator=True),
     )
 
     @assign.command(
-        name="course-tracker",
-        description="Assign Course Tracker roles to the given member for the given course",
+        name="grad-ta",
+        description="Assign a member as Graduate TA for given course",
     )
-    @discord.option("member", type=discord.SlashCommandOptionType.mentionable)
-    @discord.option("course", type=discord.SlashCommandOptionType.role)
-    async def assign_course_tracker(
+    @discord.option(
+        "member",
+        description="Member to assign",
+    )
+    @discord.option("course", description="Course to assign TA role for")
+    async def assign_graduate_ta(
         self,
         ctx: discord.ApplicationContext,
         member: discord.Member,
         course: discord.Role,
     ):
-        guild: discord.Guild = ctx.guild
+        await ctx.defer(ephemeral="commands" not in ctx.channel.name)
 
-        await MemberMgr.assign(
-            member,
-            [
-                discord.utils.get(guild.roles, name=COURSE_TRACKERS.name),
-                discord.utils.get(guild.roles, name="Course Trackers"),
-                discord.utils.get(guild.roles, name=f"{course.name} Tracker"),
-            ],
-        )
+        for role in (
+            discord.utils.get(
+                ctx.guild.roles, name=roles.categories.TEACHING_ASSISTANT.name
+            ),
+            discord.utils.get(ctx.guild.roles, name=roles.GRADUATE_TAS.name),
+            discord.utils.get(ctx.guild.roles, name=roles.TA(course.name).name),
+        ):
+            await member.add_roles(role)
 
-        await ctx.respond(
-            f"Assigned Course Tracker roles to {member.mention} for {course.mention}",
-            ephemeral=True,
-        )
-
-    @assign.command(
-        name="grad-ta",
-        description="Assign Graduate TA roles to the given member",
-    )
-    @discord.option("member", type=discord.SlashCommandOptionType.mentionable)
-    @discord.option("course", type=discord.SlashCommandOptionType.role, required=False)
-    async def assign_graduate_ta(
-        self,
-        ctx: discord.ApplicationContext,
-        member: discord.Member,
-        course: discord.Role = None,
-    ):
-        guild: discord.Guild = ctx.guild
-
-        await MemberMgr.assign(
-            member,
-            [
-                discord.utils.get(guild.roles, name=TEACHING_ASSISTANT.name),
-                discord.utils.get(guild.roles, name="Graduate TAs"),
-            ],
-        )
-
-        if course:
-            await MemberMgr.assign(
-                member,
-                [discord.utils.get(guild.roles, name=f"{course.name} TA")],
-            )
-
-        await ctx.respond(
-            f"Assigned Undergraduate TA role to {member.mention}"
-            f"{f' for {course.mention}' if course else ''}",
-            ephemeral=True,
+        await ctx.edit(
+            content=f"Assigned {member.mention} as Graduate TA for {course.mention}"
         )
 
     @assign.command(
         name="undergrad-ta",
-        description="Assign Undergraduate TA roles to the given member for the given course",
+        description="Assign a member as Undergraduate TA for given course",
     )
-    @discord.option("member", type=discord.SlashCommandOptionType.mentionable)
-    @discord.option("course", type=discord.SlashCommandOptionType.role)
+    @discord.option("member", description="Member to assign")
+    @discord.option("course", description="Course to assign TA role for")
     async def assign_undergraduate_ta(
         self,
         ctx: discord.ApplicationContext,
         member: discord.Member,
         course: discord.Role,
     ):
-        guild: discord.Guild = ctx.guild
+        await ctx.defer(ephemeral="commands" not in ctx.channel.name)
 
-        await MemberMgr.assign(
-            member,
-            [
-                discord.utils.get(guild.roles, name=TEACHING_ASSISTANT.name),
-                discord.utils.get(guild.roles, name="Undergraduate TAs"),
-                discord.utils.get(guild.roles, name=f"{course.name} TA"),
-            ],
+        for role in (
+            discord.utils.get(
+                ctx.guild.roles, name=roles.categories.TEACHING_ASSISTANT.name
+            ),
+            discord.utils.get(ctx.guild.roles, name=roles.UNDERGRADUATE_TAS.name),
+            discord.utils.get(ctx.guild.roles, name=roles.TA(course.name).name),
+        ):
+            await member.add_roles(role)
+
+        await ctx.edit(
+            content=f"Assigned {member.mention} as Undergraduate TA for {course.mention}"
         )
 
-        await ctx.respond(
-            f"Assigned Undergraduate TA role to {member.mention} for {course.mention}",
-            ephemeral=True,
+    @assign.command(
+        name="course-tracker",
+        description="Assign a member as Course Tracker for given course",
+    )
+    @discord.option("member", description="Member to assign")
+    @discord.option("course", description="Course to assign tracker role for")
+    async def assign_course_tracker(
+        self,
+        ctx: discord.ApplicationContext,
+        member: discord.Member,
+        course: discord.Role,
+    ):
+        await ctx.defer(ephemeral="commands" not in ctx.channel.name)
+
+        for role in (
+            discord.utils.get(
+                ctx.guild.roles, name=roles.categories.COURSE_TRACKERS.name
+            ),
+            discord.utils.get(ctx.guild.roles, name=roles.COURSE_TRACKERS.name),
+            discord.utils.get(
+                ctx.guild.roles, name=roles.COURSE_TRACKER(course.name).name
+            ),
+        ):
+            await member.add_roles(role)
+
+        await ctx.edit(
+            content=f"Assigned {member.mention} as Course Tracker for {course.mention}"
         )
 
 
