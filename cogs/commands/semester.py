@@ -1,15 +1,12 @@
 import logging
-import re
 
 import discord
 from discord.ext import commands
 
 from config import roles
+from util.regexes import COURSE_ROLE_PATTERN
 
 logger = logging.getLogger(__name__)
-
-
-COURSE_ROLE_PATTERN = re.compile(r"^[A-Z]{2,4} \d{3,4}(?: (?:TA|Tracker))?$")
 
 
 class SemesterCommands(commands.Cog):
