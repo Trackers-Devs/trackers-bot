@@ -15,7 +15,7 @@ CATEGORIES = discord.Color(0x292B2F)
 
 # Courses: Categories
 CORE_CS = discord.Color.green()  # discord.Color(0x05170D)
-TECH_ELECTIVE = discord.Color.blue()  # discord.Color(0x06151E)
+CS_ELECTIVE = discord.Color.blue()  # discord.Color(0x06151E)
 MATH = discord.Color.red()  # discord.Color(0x451712)
 STAT = discord.Color.orange()  # discord.Color(0x250F00)
 

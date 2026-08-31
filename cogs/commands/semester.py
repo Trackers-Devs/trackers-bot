@@ -4,7 +4,7 @@ import discord
 from discord.ext import commands
 
 from config import roles
-from util.regexes import COURSE_ROLE_PATTERN
+from util.regexes import COURSE_ROLES_PATTERN
 
 logger = logging.getLogger(__name__)
 
@@ -37,7 +37,11 @@ class SemesterCommands(commands.Cog):
                     roles.COURSE_TRACKERS,
                 )
             ),
-            *(role for role in ctx.guild.roles if COURSE_ROLE_PATTERN.match(role.name)),
+            *(
+                role
+                for role in ctx.guild.roles
+                if COURSE_ROLES_PATTERN.match(role.name)
+            ),
         ):
             for member in role.members:
                 await member.remove_roles(role)

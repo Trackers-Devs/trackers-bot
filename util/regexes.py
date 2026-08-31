@@ -1,7 +1,10 @@
 import re
 
 # Roles
-COURSE_ROLE_PATTERN = re.compile(r"^[A-Z]{2,4} \d{3,4}(?: (?:TA|Tracker))?$")
+COURSE_ROLES_PATTERN = re.compile(r"^[A-Z]{2,4} \d{3,4}(?: (?:TA|Tracker))?$")
+COURSE_PATTERN = re.compile(r"^[A-Z]{2,4} \d{3,4}$")
+COURSE_TRACKER_PATTERN = re.compile(r"^[A-Z]{2,4} \d{3,4} Tracker$")
+COURSE_TA_PATTERN = re.compile(r"^[A-Z]{2,4} \d{3,4} TA$")
 
-# Channels
-REACTION_ROLES_CHANNEL_PATTERN = re.compile(r"^get-.+-roles$")
+# Emojis
+COURSE_EMOJI_PATTERN = re.compile(r"^([a-z]{2,4})(\d{3,4})$")

@@ -2,51 +2,51 @@ import discord
 
 from config import courses
 
-_DESCRIPTION = "React below to unlock the respective course channels in the server."
+DESCRIPTION = "React below to unlock the respective course channels in the server."
 
 CORE_CS = [
-    discord.Embed(colour=courses.CORE_CS.color).set_image(
+    discord.Embed(color=courses.CORE_CS.color).set_image(
         url="attachment://core-cs.png"
     ),
-    discord.Embed(colour=courses.CORE_CS.color, description=_DESCRIPTION),
+    discord.Embed(color=courses.CORE_CS.color, description=DESCRIPTION),
 ]
 
-TECH_ELECTIVE_1 = [
-    discord.Embed(colour=courses.TECHNICAL_ELECTIVE.color).set_image(
-        url="attachment://tech-elective-1.png"
+CS_ELECTIVE_1 = [
+    discord.Embed(color=courses.CS_ELECTIVE.color).set_image(
+        url="attachment://cs-elective-1.png"
     ),
-    discord.Embed(colour=courses.TECHNICAL_ELECTIVE.color, description=_DESCRIPTION),
+    discord.Embed(color=courses.CS_ELECTIVE.color, description=DESCRIPTION),
 ]
 
-TECH_ELECTIVE_2 = [
-    discord.Embed(colour=courses.TECHNICAL_ELECTIVE.color).set_image(
-        url="attachment://tech-elective-2.png"
+CS_ELECTIVE_2 = [
+    discord.Embed(color=courses.CS_ELECTIVE.color).set_image(
+        url="attachment://cs-elective-2.png"
     ),
-    discord.Embed(colour=courses.TECHNICAL_ELECTIVE.color, description=_DESCRIPTION),
+    discord.Embed(color=courses.CS_ELECTIVE.color, description=DESCRIPTION),
+]
+
+CS_ELECTIVE_3 = [
+    discord.Embed(color=courses.CS_ELECTIVE.color).set_image(
+        url="attachment://cs-elective-3.png"
+    ),
+    discord.Embed(color=courses.CS_ELECTIVE.color, description=DESCRIPTION),
 ]
 
 MATH = [
-    discord.Embed(colour=courses.MATH.color).set_image(url="attachment://math.png"),
-    discord.Embed(colour=courses.MATH.color, description=_DESCRIPTION),
+    discord.Embed(color=courses.MATH.color).set_image(url="attachment://math.png"),
+    discord.Embed(color=courses.MATH.color, description=DESCRIPTION),
 ]
 
 STAT = [
-    discord.Embed(colour=courses.STAT.color).set_image(url="attachment://stat.png"),
-    discord.Embed(colour=courses.STAT.color, description=_DESCRIPTION),
+    discord.Embed(color=courses.STAT.color).set_image(url="attachment://stat.png"),
+    discord.Embed(color=courses.STAT.color, description=DESCRIPTION),
 ]
 
 COURSE_EMBEDS = [
     CORE_CS,
-    TECH_ELECTIVE_1,
-    TECH_ELECTIVE_2,
+    CS_ELECTIVE_1,
+    CS_ELECTIVE_2,
+    CS_ELECTIVE_3,
     MATH,
     STAT,
 ]
-
-# TODO
-
-PERSONAL_EMBEDS = []
-
-# TODO
-
-COMMUNITY_EMBEDS = []

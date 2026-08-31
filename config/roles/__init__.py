@@ -33,9 +33,15 @@ def COURSE_TRACKER(course: str):
     return Role(name=f"{course} Tracker")
 
 
+def COURSE(course: str):
+    return Role(name=course)
+
+
 TRACKERS = Role(
     name="Trackers",
     color=colors.TRACKERS,
     hoist=True,
     mentionable=True,
 )
+
+EVERYONE = Role(name="@everyone")

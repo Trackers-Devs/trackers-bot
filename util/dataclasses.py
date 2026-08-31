@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import discord
 
@@ -31,14 +31,25 @@ class RoleCategory:
 
 
 @dataclass(frozen=True)
-class Channel:
+class TextChannel:
     name: str
+    announcements: bool = False
+    overwrites: dict[Role, discord.PermissionOverwrite] = field(default_factory=dict)
+
+
+@dataclass(frozen=True)
+class ChannelCategory:
+    name: str
+    channels: list[TextChannel] = field(default_factory=list)
+    overwrites: dict[Role, discord.PermissionOverwrite] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
 class CourseCategory:
     name: str
     color: discord.Color
+    subjects: tuple[str, ...] = ()
+    numbers: frozenset[str] = frozenset()
 
 
 @dataclass(frozen=True)
@@ -54,16 +65,10 @@ class Course:
     category: CourseCategory
     concentration: CourseConcentration | None = None
 
-    def __post_init__(self):
-        if not (
-            2 <= len(self.subject) <= 4
-            and self.subject.isalpha()
-            and self.subject.isupper()
-        ):
-            raise ValueError(f"Unsupported course subject: {self.subject!r}")
-        if not (self.number.isdigit() and 100 <= int(self.number) <= 9999):
-            raise ValueError(f"Invalid course number: {self.number!r}")
-
     @property
     def name(self) -> str:
         return f"{self.subject} {self.number}"
+
+    @property
+    def color(self) -> discord.Color:
+        return self.concentration.color if self.concentration else self.category.color
