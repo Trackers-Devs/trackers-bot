@@ -7,6 +7,9 @@ UNDERGRADUATE_TAS = discord.Color(0x3498DB)
 # Roles: Course Trackers
 COURSE_TRACKERS = discord.Color(0x93BFE6)
 
+# Roles: Student Status
+GRADUATED = discord.Color(0xEED382)
+
 # Roles: Trackers
 TRACKERS = discord.Color.yellow()
 

@@ -37,11 +37,19 @@ def COURSE(course: str):
     return Role(name=course)
 
 
+GRADUATED = Role(
+    name="graduated",
+    color=colors.GRADUATED,
+    hoist=True,
+    mentionable=True,
+)
+
 TRACKERS = Role(
     name="Trackers",
     color=colors.TRACKERS,
     hoist=True,
     mentionable=True,
 )
+
 
 EVERYONE = Role(name="@everyone")
