@@ -10,6 +10,9 @@ COURSE_TRACKERS = discord.Color(0x93BFE6)
 # Roles: Trackers
 TRACKERS = discord.Color.yellow()
 
+# Roles: Community
+COMMUNITY = discord.Color.from_rgb(180, 25, 25)
+
 # Roles: Categories
 CATEGORIES = discord.Color(0x292B2F)
 

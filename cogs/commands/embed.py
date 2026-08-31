@@ -4,7 +4,7 @@ import discord
 from discord.ext import commands
 
 from config import channels, courses, roles
-from static.embeds import reaction_roles
+from static import embeds
 from util.embeds import find_embed
 from util.roles import roles_between
 
@@ -17,7 +17,7 @@ class EmbedCommands(commands.Cog):
 
     embed = discord.SlashCommandGroup(
         name="embed",
-        description="Manage embeds",
+        description="Send/resend embeds",
         default_member_permissions=discord.Permissions(administrator=True),
     )
 
@@ -63,16 +63,16 @@ class EmbedCommands(commands.Cog):
 
         logs = []
 
-        for banner, body in reaction_roles.COURSE_EMBEDS:
+        for banner, body in embeds.reaction_roles.COURSE_EMBEDS:
             category = discord.utils.get(courses.CATEGORIES, color=body.color)
 
             lines = lines_by_category[category][:20]
             lines_by_category[category] = lines_by_category[category][20:]
 
             body.description = (
-                reaction_roles.DESCRIPTION
+                embeds.reaction_roles.INSTRUCTIONS
                 if not lines
-                else "\n".join([reaction_roles.DESCRIPTION, "", *lines])
+                else "\n".join([embeds.reaction_roles.INSTRUCTIONS, "", *lines])
             )
 
             filename = banner.image.url.removeprefix("attachment://")
@@ -103,6 +103,60 @@ class EmbedCommands(commands.Cog):
             logger.info(f"{logs[-1]} in #{channel.name}")
 
         await ctx.edit(content="\n".join(logs))
+
+    @embed.command(
+        name="get-community-roles",
+        description="Send or update the community reaction roles embed from the server's current community roles",
+    )
+    async def get_community_roles(self, ctx: discord.ApplicationContext):
+        await ctx.defer(ephemeral="commands" not in ctx.channel.name)
+
+        channel = discord.utils.get(
+            ctx.guild.text_channels, name=channels.GET_COMMUNITY_ROLES.name
+        )
+
+        lines = sorted(
+            f"{emoji} — {role.mention}"
+            for role in roles_between(
+                ctx.guild, roles.categories.COMMUNITY, roles.categories.CLASSES
+            )
+            if (
+                emoji := discord.utils.get(
+                    ctx.guild.emojis, name=role.name.replace(" ", "").lower()
+                )
+            )
+        )
+
+        banner, info, body = embeds.reaction_roles.COMMUNITY_EMBED
+        body.description = (
+            embeds.reaction_roles.INSTRUCTIONS
+            if not lines
+            else "\n".join([embeds.reaction_roles.INSTRUCTIONS, "", *lines])
+        )
+
+        filename = banner.image.url.removeprefix("attachment://")
+
+        message = await find_embed(
+            self.bot, ctx.guild, channels.GET_COMMUNITY_ROLES, filename
+        )
+        if message:
+            if message.embeds[2].description == body.description:
+                log = "Community roles embed unchanged"
+            else:
+                await message.edit(embeds=[banner, info, body])
+                log = "Updated community roles embed"
+        else:
+            await channel.send(
+                files=[
+                    discord.File(f"static/embeds/banners/{filename}"),
+                    discord.File("static/embeds/banners/spacer.png"),
+                ],
+                embeds=[banner, info, body],
+            )
+            log = "Sent community roles embed"
+
+        logger.info(f"{log} in #{channel.name}")
+        await ctx.edit(content=log)
 
 
 def setup(bot: commands.Bot):
