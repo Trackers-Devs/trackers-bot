@@ -6,7 +6,7 @@ from discord.ext import commands
 from config import channels, courses, roles
 from static import embeds
 from util.embeds import find_embed
-from util.roles import roles_between
+from util.roles import get_roles_between
 
 logger = logging.getLogger(__name__)
 
@@ -29,7 +29,7 @@ class EmbedCommands(commands.Cog):
         await ctx.defer(ephemeral="commands" not in ctx.channel.name)
 
         roles_by_category = {category: [] for category in courses.CATEGORIES}
-        for role in roles_between(
+        for role in get_roles_between(
             ctx.guild, roles.categories.CLASSES, roles.categories.BOTS
         ):
             subject, number = role.name.split(" ")
@@ -117,7 +117,7 @@ class EmbedCommands(commands.Cog):
 
         lines = sorted(
             f"{emoji} — {role.mention}"
-            for role in roles_between(
+            for role in get_roles_between(
                 ctx.guild, roles.categories.COMMUNITY, roles.categories.CLASSES
             )
             if (
